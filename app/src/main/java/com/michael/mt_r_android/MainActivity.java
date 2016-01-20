@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
                 new Thread(sendThread).start();
             }
         });
-        myHandler = new Handler(){
+        myHandler =new Handler(){
             @Override
             public void handleMessage(Message msg){
                 textReceive.append((msg.obj).toString());
@@ -129,6 +129,7 @@ public class MainActivity extends Activity {
         private InputStream inStream = null;
 
         private byte[] buffer;
+        private int[] recBuffer;
         private String str = null;
 
         ReceiveThread(Socket socket){
@@ -143,14 +144,19 @@ public class MainActivity extends Activity {
         public void run(){
             while(isReceive){
                 buffer = new byte[1448];
+                recBuffer = new int[362];
                 try {
                     inStream.read(buffer);
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
+
+
+
                 try {
                     str = new String(buffer,"UTF-8").trim();
+
                 } catch (UnsupportedEncodingException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -158,6 +164,7 @@ public class MainActivity extends Activity {
                 Message msg = new Message();
                 msg.obj = str;
                 myHandler.sendMessage(msg);
+
             }
         }
     }

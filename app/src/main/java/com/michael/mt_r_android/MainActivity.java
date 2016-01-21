@@ -156,17 +156,20 @@ public class MainActivity extends Activity {
                     recBuffer[j] = (buffer[4*j+0] & 0xff) | ((buffer[4*j+1] << 8) & 0xff00)
                             | ((buffer[4*j+2] << 24) >>> 8) | (buffer[4*j+3] << 24);
                 }
-
-                try {
-                    str = new String(buffer,"UTF-8").trim();
-
-                } catch (UnsupportedEncodingException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                Message msg = new Message();
-                msg.obj = str;
-                myHandler.sendMessage(msg);
+                buffer[0]=0;
+//                Message msg = new Message();
+////                msg.obj = str;
+//                myHandler.sendMessage(msg);
+//                try {
+//                    str = new String(buffer,"UTF-8").trim();
+//
+//                } catch (UnsupportedEncodingException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+//                Message msg = new Message();
+//                msg.obj = str;
+//                myHandler.sendMessage(msg);
 
             }
         }

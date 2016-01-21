@@ -152,7 +152,10 @@ public class MainActivity extends Activity {
                     e.printStackTrace();
                 }
 
-
+                for(int j=0;j<362;j++){
+                    recBuffer[j] = (buffer[4*j+0] & 0xff) | ((buffer[4*j+1] << 8) & 0xff00)
+                            | ((buffer[4*j+2] << 24) >>> 8) | (buffer[4*j+3] << 24);
+                }
 
                 try {
                     str = new String(buffer,"UTF-8").trim();

@@ -18,10 +18,12 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+    CustomViewCanvas customViewCanvas;
     private TextView textReceive = null;
     private EditText textSend = null;
     private Button btnConnect = null;
     private Button btnSend = null;
+    private Button btnDraw = null;
     private static final String ServerIP = "172.26.213.6";//"103.44.145.243";花生壳
     private static final int ServerPort = 3247;//14400;花生壳
     private Socket socket = null;
@@ -31,16 +33,22 @@ public class MainActivity extends Activity {
     private Handler myHandler = null;
     private ReceiveThread receiveThread = null;
     private boolean isReceive = false;
+    protected int[] buffer=new int[362];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        customViewCanvas = (CustomViewCanvas) findViewById(R.id.customViewC);
 
         textReceive = (TextView)findViewById(R.id.textViewReceive);
         textSend = (EditText)findViewById(R.id.editTextSend);
+
         btnConnect = (Button)findViewById(R.id.buttonConnect);
         btnSend = (Button)findViewById(R.id.buttonSend);
+        btnDraw = (Button)findViewById(R.id.buttonDraw);
+
+
 
         //连接按钮的监听器
         btnConnect.setOnClickListener(new View.OnClickListener() {
@@ -51,17 +59,34 @@ public class MainActivity extends Activity {
                 if (!isConnect){
                     new Thread(connectThread).start();
                 }
+
             }
         });
 
         //发送按钮的监听器
         btnSend.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 strMessage = textSend.getText().toString();
                 new Thread(sendThread).start();
+            }
+        });
+
+        //DrawButton
+        btnDraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                for (int i=0;i<181;i++){
+                    buffer[2*i]=0;
+                    buffer[2*i+1]=i*100;
+                }
+                buffer[0]=-4000;
+                buffer[1]=0;
+                buffer[100]=-100;
+                buffer[101]=2000;
+                customViewCanvas.drawLaserMap(buffer);
             }
         });
         myHandler =new Handler(){
@@ -124,6 +149,7 @@ public class MainActivity extends Activity {
             }
         }
     };
+
     //接收线程
     private class ReceiveThread extends Thread{
         private InputStream inStream = null;

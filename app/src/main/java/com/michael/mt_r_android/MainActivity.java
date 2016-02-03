@@ -93,20 +93,9 @@ public class MainActivity extends Activity {
             public void handleMessage(Message msg){
                 switch (msg.what) {
                     case 0:
-//                    Toast.makeText(MainActivity.this, "onTimer", Toast.LENGTH_SHORT).show();
-//                        customViewCanvas.drawInit();
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                    Toast.makeText(MainActivity.this, "onTimer", Toast.LENGTH_SHORT).show();
                                 customViewCanvas.drawLaserMap(recBuffer);
-//                            }
-//                        });
                         break;
                     case 1:
-//                    Toast.makeText(MainActivity.this, "onTimer", Toast.LENGTH_SHORT).show();
-//                        customViewCanvas.drawInit();
-//                        textReceive.append((msg.obj).toString());
                         break;
                 }
             }
@@ -173,7 +162,6 @@ public class MainActivity extends Activity {
         private InputStream inStream = null;
 
         private byte[] buffer;
-        private String str = null;
 
         ReceiveThread(Socket socket){
             try {

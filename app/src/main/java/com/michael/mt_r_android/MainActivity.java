@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
     private Handler myHandler = null;
     private ReceiveThread receiveThread = null;
     private boolean isReceive = false;
-    protected int[] buffer=new int[362];
+    protected int[] recBuffer =new int[362];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,6 @@ public class MainActivity extends Activity {
         btnConnect = (Button)findViewById(R.id.buttonConnect);
         btnSend = (Button)findViewById(R.id.buttonSend);
         btnDraw = (Button)findViewById(R.id.buttonDraw);
-
-
 
         //连接按钮的监听器
         btnConnect.setOnClickListener(new View.OnClickListener() {
@@ -79,23 +77,42 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 for (int i=0;i<181;i++){
-                    buffer[2*i]=0;
-                    buffer[2*i+1]=i*100;
+                    recBuffer[2*i]=0;
+                    recBuffer[2*i+1]=i*100;
                 }
-                buffer[0]=-4000;
-                buffer[1]=0;
-                buffer[100]=-100;
-                buffer[101]=2000;
-                customViewCanvas.drawLaserMap(buffer);
+                recBuffer[0]=-4000;
+                recBuffer[1]=0;
+                recBuffer[100]=-100;
+                recBuffer[101]=2000;
+                customViewCanvas.drawLaserMap(recBuffer);
             }
         });
+
         myHandler =new Handler(){
             @Override
             public void handleMessage(Message msg){
-                textReceive.append((msg.obj).toString());
+                switch (msg.what) {
+                    case 0:
+//                    Toast.makeText(MainActivity.this, "onTimer", Toast.LENGTH_SHORT).show();
+//                        customViewCanvas.drawInit();
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                    Toast.makeText(MainActivity.this, "onTimer", Toast.LENGTH_SHORT).show();
+                                customViewCanvas.drawLaserMap(recBuffer);
+//                            }
+//                        });
+                        break;
+                    case 1:
+//                    Toast.makeText(MainActivity.this, "onTimer", Toast.LENGTH_SHORT).show();
+//                        customViewCanvas.drawInit();
+//                        textReceive.append((msg.obj).toString());
+                        break;
+                }
             }
         };
     }
+
     //连接到服务器的接口
     Runnable connectThread = new Runnable() {
 
@@ -122,6 +139,7 @@ public class MainActivity extends Activity {
             }
         }
     };
+
     //发送消息的接口
     Runnable sendThread = new Runnable() {
 
@@ -155,7 +173,6 @@ public class MainActivity extends Activity {
         private InputStream inStream = null;
 
         private byte[] buffer;
-        private int[] recBuffer;
         private String str = null;
 
         ReceiveThread(Socket socket){
@@ -170,7 +187,6 @@ public class MainActivity extends Activity {
         public void run(){
             while(isReceive){
                 buffer = new byte[1448];
-                recBuffer = new int[362];
                 try {
                     inStream.read(buffer);
                 } catch (IOException e) {
@@ -182,20 +198,19 @@ public class MainActivity extends Activity {
                     recBuffer[j] = (buffer[4*j+0] & 0xff) | ((buffer[4*j+1] << 8) & 0xff00)
                             | ((buffer[4*j+2] << 24) >>> 8) | (buffer[4*j+3] << 24);
                 }
-                buffer[0]=0;
 //                Message msg = new Message();
 ////                msg.obj = str;
 //                myHandler.sendMessage(msg);
 //                try {
-//                    str = new String(buffer,"UTF-8").trim();
+//                    str = new String(recBuffer,"UTF-8").trim();
 //
 //                } catch (UnsupportedEncodingException e) {
 //                    // TODO Auto-generated catch block
 //                    e.printStackTrace();
 //                }
-//                Message msg = new Message();
-//                msg.obj = str;
-//                myHandler.sendMessage(msg);
+                Message msg = new Message();
+                msg.what = 0;
+                myHandler.sendMessage(msg);
 
             }
         }

@@ -56,7 +56,7 @@ class CustomViewCanvas extends View {
         if(onDrawFlag == DRAW_DOT362){
             float dot_x,dot_y;
             paint.setColor(0xFFF1F1F1);//dot white
-            float rad = 3;
+            float rad = 2;
             for (int i=0; i < 181; i++){
                 if((bufferFromSocket[2*i]/10)>=200)
                     dot_x=200+200;
@@ -75,7 +75,7 @@ class CustomViewCanvas extends View {
 
     }
 
-    protected void forDrawBaseRobot(){
+    protected void drawInit(){
         width = getWidth();
         //for range circle
         rangeRad = 55;
@@ -90,7 +90,7 @@ class CustomViewCanvas extends View {
 
     protected  void drawLaserMap(int[] buf){
         onDrawFlag = DRAW_DOT362;
-        forDrawBaseRobot();
+        drawInit();
         bufferFromSocket = buf;
         invalidate();
     }

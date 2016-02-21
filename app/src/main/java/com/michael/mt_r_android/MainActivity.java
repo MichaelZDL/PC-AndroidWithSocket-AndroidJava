@@ -24,8 +24,13 @@ public class MainActivity extends Activity {
     private Button btnConnect = null;
     private Button btnSend = null;
     private Button btnDraw = null;
-    private static final String ServerIP = "172.26.213.6";//"103.44.145.243";花生壳
-    private static final int ServerPort = 3247;//14400;花生壳
+    private Button btnUp = null;
+    private Button btnDown = null;
+    private Button btnLeft = null;
+    private Button btnRight = null;
+    private Button btnStop = null;
+    private static final String ServerIP = "103.44.145.243";//"172.26.213.6";//"103.44.145.243";花生壳
+    private static final int ServerPort = 25044;//3247;//25044;花生壳
     private Socket socket = null;
     private String strMessage;
     private boolean isConnect = false;
@@ -41,13 +46,73 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         customViewCanvas = (CustomViewCanvas) findViewById(R.id.customViewC);
 
-        textReceive = (TextView)findViewById(R.id.textViewReceive);
+//        textReceive = (TextView)findViewById(R.id.textViewReceive);
         textSend = (EditText)findViewById(R.id.editTextSend);
 
         btnConnect = (Button)findViewById(R.id.buttonConnect);
         btnSend = (Button)findViewById(R.id.buttonSend);
         btnDraw = (Button)findViewById(R.id.buttonDraw);
+        btnUp = (Button)findViewById(R.id.buttonUp);
+        btnDown = (Button)findViewById(R.id.buttonDown);
+        btnLeft = (Button)findViewById(R.id.buttonLeft);
+        btnRight = (Button)findViewById(R.id.buttonRight);
+        btnStop = (Button)findViewById(R.id.buttonStop);
 
+        //buttonUp
+        btnUp.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                strMessage = "MT-R move forward";
+                new Thread(sendThread).start();
+
+            }
+        });
+        //buttonDown
+        btnDown.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                strMessage = "MT-R move back";
+                new Thread(sendThread).start();
+
+            }
+        });
+        //buttonLeft
+        btnLeft.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                strMessage = "MT-R move left";
+                new Thread(sendThread).start();
+
+            }
+        });
+        //buttonRight
+        btnRight.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                strMessage = "MT-R move right";
+                new Thread(sendThread).start();
+
+            }
+        });
+        //buttonStop
+        btnStop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                strMessage = "MT-R move stop";
+                new Thread(sendThread).start();
+
+            }
+        });
         //连接按钮的监听器
         btnConnect.setOnClickListener(new View.OnClickListener() {
 

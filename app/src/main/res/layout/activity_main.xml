@@ -3,48 +3,107 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:orientation="vertical" >
+    <com.michael.mt_r_android.CustomViewCanvas
+        android:id="@+id/customViewC"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <!--<TextView-->
+        <!--android:id="@+id/textViewReceive"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="这里显示接收到的消息：\n"-->
+        <!--android:layout_gravity="center_horizontal"/>-->
 
-    <TextView
-        android:id="@+id/textViewReceive"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="这里显示接收到的消息：\n" />
-
-    <EditText
-        android:id="@+id/editTextSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10" >
-        <requestFocus />
-    </EditText>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/buttonConnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/editTextSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="连接" />
+            android:ems="10"
+            android:layout_gravity="center_horizontal">
+            <requestFocus />
+        </EditText>
 
         <Button
             android:id="@+id/buttonSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发送" />
+            android:text="发送"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <Button
+            android:id="@+id/buttonConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="连接" />
         <Button
             android:id="@+id/buttonDraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Draw" />
+
     </LinearLayout>
 
-    <com.michael.mt_r_android.CustomViewCanvas
-        android:id="@+id/customViewC"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/buttonUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forward"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/buttonLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left"
+            android:layout_gravity="center"/>
+        <Button
+            android:id="@+id/buttonStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop"
+            android:layout_gravity="center_vertical"/>
+        <Button
+            android:id="@+id/buttonRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Right"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/buttonDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
 </LinearLayout>
